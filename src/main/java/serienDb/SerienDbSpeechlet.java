@@ -58,7 +58,20 @@ public class SerienDbSpeechlet implements Speechlet {
             return getHelloResponse();
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
-        } else {
+        } else if ("getSeasons".equals(intentName)) {
+            String speechText = "Du willst Informationen über die Serie "+intent.getSlot("show").getValue()+" erhalten?";
+
+            // Create the Simple card content.
+            SimpleCard card = new SimpleCard();
+            card.setTitle("HelloWorld");
+            card.setContent(speechText);
+
+            // Create the plain text output.
+            PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+            speech.setText(speechText);
+
+            return SpeechletResponse.newTellResponse(speech, card);
+        }else {
             throw new SpeechletException("Invalid Intent");
         }
     }
